@@ -27,7 +27,8 @@ const elements = {
         themeSwitch: document.getElementById('switch'),
         createNewTaskBtn: document.getElementById('add-new-task-btn'),
         modalWindow: document.getElementById('new-task-modal-window'),
-        columnDivs: document.querySelectorAll('.column-div')
+        columnDivs: document.querySelectorAll('.column-div'),
+        sidebar: document.getElementById('side-bar-div') 
 }
 
 let activeBoard = ""
@@ -170,7 +171,7 @@ function setupEventListeners() {
   elements.showSideBarBtn.addEventListener('click',() => toggleSidebar(true)); //->Add Event Listener and Fix syntax
 
   // Theme switch event listener
-  elements.themeSwitch.addEventListener('change', toggleTheme);
+  elements.themeSwitch.addEventListener('click', () => toggleTheme());//->Fixed the switch event listener. 
 
   // Show Add New Task Modal event listener
   elements.createNewTaskBtn.addEventListener('click', () => {
@@ -212,11 +213,44 @@ function addTask(event) {
 }
 
 
-function toggleSidebar(show) {
- 
+function toggleSidebar(show) 
+{ 
+ //console.log("Show Sidebar : " + localStorage["showSideBar"])
+  
+ if (show) 
+ {
+    elements.sidebar.style.display = "block";
+    elements.showSideBarBtn.style.display = "none";
+    localStorage.setItem('showSideBar', 'false')
+ } 
+  
+ else 
+ {
+   elements.sidebar.style.display = "none";
+   elements.showSideBarBtn.style.display = "block";
+   localStorage.setItem('showSideBar', 'true')
+ }
+
 }
 
 function toggleTheme() {
+ //Used A Switch Statement
+  switch(localStorage.getItem('light-theme'))
+  {
+    case 'enabled' : 
+    {
+      document.body.classList.remove('light-theme') //Remove the light-theme defaulting to :root theme
+      localStorage.setItem('light-theme','disabled') //Change the value inside the localStorage
+     // console.log(localStorage.getItem('light-theme')) //Show status on my console for debugging purposes - disable
+    }
+    break;
+    default : 
+    {
+      document.body.classList.toggle('light-theme'); //Add the light-theme from the given css file
+      localStorage.setItem('light-theme','enabled') //Change the status to enabled  inside the localStorage
+     // console.log(localStorage.getItem('light-theme'))//Show results on console - enable
+    }
+  }
  
 }
 
