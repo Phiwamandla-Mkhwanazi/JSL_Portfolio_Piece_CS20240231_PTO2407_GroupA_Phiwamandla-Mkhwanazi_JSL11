@@ -13,6 +13,7 @@ function initializeData() {
   localStorage.setItem('tasks', JSON.stringify(initialData)); 
   localStorage.setItem('showSideBar', 'true');
 }
+initializeData();
 
 // TASK: Get elements from the DOM
 const elements = {
