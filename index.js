@@ -196,6 +196,30 @@ function toggleModal(show, modal = elements.modalWindow) {
 
 function addTask(event) {
   event.preventDefault(); 
+  
+    //-> Created an object to pass as argument to the createNewTask function
+    const task = 
+    {
+      title : document.getElementById('title-input').value,
+      description : document.getElementById('desc-input').value,
+      status: document.getElementById('select-status').value,
+      board : activeBoard
+    }
+    
+    //->Validate input fields
+    if (!task.title || !task.description || !task.status || !task.board) {
+      alert("Please fill in all fields before adding a task.");
+      return;
+    }
+
+    createNewTask(task) //->taskFunction Helper. The function updates and saves the new task to localstorage
+    
+    //->Display To console
+    console.log(`\nTitle: ${task.title}\nDescription: ${task.description}\nStatus: ${task.status}\nBoard: ${task.board}`);
+
+    addTaskToUI(task); //->Update UI by including the newly created task.
+  
+    event.target.reset()//->Clear input fields
 
 }
 
