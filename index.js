@@ -24,7 +24,9 @@ const elements = {
         createNewTaskBtn: document.getElementById('add-new-task-btn'),
         modalWindow: document.getElementById('new-task-modal-window'),
         columnDivs: document.querySelectorAll('.column-div'),
-        sidebar: document.getElementById('side-bar-div') 
+        sidebar: document.getElementById('side-bar-div'),
+        editTaskModal: document.querySelector('.edit-task-modal-window')
+        
 }
 
 let activeBoard = ""
