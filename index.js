@@ -25,8 +25,7 @@ const elements = {
         modalWindow: document.getElementById('new-task-modal-window'),
         columnDivs: document.querySelectorAll('.column-div'),
         sidebar: document.getElementById('side-bar-div'),
-        editTaskModal: document.querySelector('.edit-task-modal-window')
-        
+        editTaskModal: document.querySelector('.edit-task-modal-window'),      
 }
 
 let activeBoard = ""
@@ -197,18 +196,6 @@ function toggleModal(show, modal = elements.modalWindow) {
 function addTask(event) {
   event.preventDefault(); 
 
-  //Assign user input to the task object
-    const task = {
-      
-    };
-    const newTask = createNewTask(task);
-    if (newTask) {
-      addTaskToUI(newTask);
-      toggleModal(false);
-      elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
-      event.target.reset();
-      refreshTasksUI();
-    }
 }
 
 
@@ -259,15 +246,27 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  
+  //->
+  const taskTitleInput = document.getElementById('edit-task-title-input');
+  const taskDescriptionInput = document.getElementById('edit-task-desc-input');
+  const taskStatusSelect = document.getElementById('edit-select-status');
+
+  taskTitleInput.value = task.title;
+  taskDescriptionInput.value = task.description;
+  taskStatusSelect.value = task.status;
 
   // Get button elements from the task modal
-
+  //->
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
 
   // Call saveTaskChanges upon click of Save Changes button
- 
+  //->
+  saveTaskChanges(task.id);
 
   // Delete task using a helper function and close the task modal
+  //-> 
+  //deleteTask(task.id)
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
@@ -275,16 +274,16 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  
+  console.log("Using Save changes")
 
   // Create an object with the updated task details
 
 
   // Update task using a hlper functoin
- 
+  
 
   // Close the modal and refresh the UI to reflect the changes
-
+  
   refreshTasksUI();
 }
 
