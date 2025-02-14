@@ -10,12 +10,8 @@ import {initialData} from "./initialData.js";
 
 // Function checks if local storage already has data, if not it loads initialData to localStorage
 function initializeData() {
-  if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', JSON.stringify(initialData)); 
-    localStorage.setItem('showSideBar', 'true')
-  } else {
-    console.log('Data already exists in localStorage');
-  }
+  localStorage.setItem('tasks', JSON.stringify(initialData)); 
+  localStorage.setItem('showSideBar', 'true');
 }
 
 // TASK: Get elements from the DOM
@@ -37,6 +33,7 @@ let activeBoard = ""
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
+  console.log(tasks);
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
   displayBoards(boards);
   if (boards.length > 0) {
