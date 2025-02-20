@@ -26,7 +26,11 @@ const elements = {
         modalWindow: document.getElementById('new-task-modal-window'),
         columnDivs: document.querySelectorAll('.column-div'),
         sidebar: document.getElementById('side-bar-div'),
-        editTaskModal: document.querySelector('.edit-task-modal-window'),      
+  
+        editTaskModal: document.querySelector('.edit-task-modal-window'),   
+        elTitle:document.getElementById('title-input'),
+        elDescription: document.getElementById('desc-input'),
+        elStatus: document.getElementById('select-status')  
 }
 
 let activeBoard = ""
@@ -196,11 +200,7 @@ function toggleModal(show, modal = elements.modalWindow) {
 
 function addTask(event) {
   event.preventDefault();
-  
-    const elTitle = document.getElementById('title-input');
-    const elDescription = document.getElementById('desc-input');
-    const elStatus = document.getElementById('select-status');
-    
+     
   //-> Create an object for the new task
     const task = {
       title: elTitle.value.trim(),
