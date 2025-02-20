@@ -214,8 +214,9 @@ function addTask(event) {
       alert("Please fill in all fields before adding a task.");
       return;
   }
-  //->Close the edit task modal
-  toggleModal(false, elements.modalWindow); 
+  //->Close the new task modal
+  toggleModal(false);
+  elements.filterDiv.style.display = 'none'; 
   
   //-> Create task and store in localStorage
   let newTask = createNewTask(task);
