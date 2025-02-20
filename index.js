@@ -243,7 +243,7 @@ function toggleSidebar(show)
  
   if (show) 
  {
-    elements.sidebar.style.display = "block";
+    elements.sidebar.style.display = "flex";
     elements.showSideBarBtn.style.display = "none";
     localStorage.setItem('showSideBar','true')
  } 
