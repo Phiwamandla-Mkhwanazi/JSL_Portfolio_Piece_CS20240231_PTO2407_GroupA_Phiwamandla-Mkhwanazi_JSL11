@@ -195,31 +195,42 @@ function toggleModal(show, modal = elements.modalWindow) {
  * **********************************************************************************************************************************************/
 
 function addTask(event) {
-  event.preventDefault(); 
+  event.preventDefault();
   
-    //-> Created an object to pass as argument to the createNewTask function
-    const task = 
-    {
-      title : document.getElementById('title-input').value,
-      description : document.getElementById('desc-input').value,
-      status: document.getElementById('select-status').value,
-      board : activeBoard
-    }
+    const elTitle = document.getElementById('title-input');
+    const elDescription = document.getElementById('desc-input');
+    const elStatus = document.getElementById('select-status');
     
-    //->Validate input fields
-    if (!task.title || !task.description || !task.status || !task.board) {
+  //-> Create an object for the new task
+    const task = {
+      title: elTitle.value.trim(),
+      description: elDescription.value.trim(),
+      status: elStatus.value ,
+      board: activeBoard
+  };
+
+  //-> Validate input fields
+  if (!task.title || !task.description || !task.status || !task.board) {
       alert("Please fill in all fields before adding a task.");
       return;
-    }
-
-    createNewTask(task) //->taskFunction Helper. The function updates and saves the new task to localstorage
-    
-    //->Display To console
-    console.log(`\nTitle: ${task.title}\nDescription: ${task.description}\nStatus: ${task.status}\nBoard: ${task.board}`);
-
-    addTaskToUI(task); //->Update UI by including the newly created task.
+  }
+  //->Close the edit task modal
+  toggleModal(false, elements.modalWindow); 
   
-    event.target.reset()//->Clear input fields
+  //-> Create task and store in localStorage
+  let newTask = createNewTask(task);
+  
+  //-> Display task info in console for debugging purposes
+  console.log(getTasks())
+
+  //-> Update UI
+  addTaskToUI(newTask);
+  refreshTasksUI();
+
+  //-> Clear input fields 
+  elTitle.value = "";
+  elDescription.value = "";
+  elStatus.value = "todo"; // Set default status if applicable
 
 }
 
