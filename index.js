@@ -309,15 +309,29 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  console.log("Using Save changes")
-
+  const elTitle = document.getElementById('edit-task-title-input').value.trim();
+  const elDescription = document.getElementById('edit-task-desc-input').value.trim();
+  const elStatus = document.getElementById('edit-select-status').value;
+  
   // Create an object with the updated task details
-
+  let objTask = 
+  { id:taskId,
+    title: elTitle,
+    description: elDescription,
+    status: elStatus, 
+    board: activeBoard 
+  }; 
 
   // Update task using a hlper functoin
-  
+  if (!elTitle || !elDescription || !elStatus) {
+  console.error("Error: One or more input fields are empty!");
+    return;
+  }
+  else
+  putTask(taskId, objTask);
 
   // Close the modal and refresh the UI to reflect the changes
+  toggleModal(false, elements.editTaskModal);
   
   refreshTasksUI();
 }
