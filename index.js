@@ -300,11 +300,16 @@ function openEditTaskModal(task) {
   // Delete task using a helper function and close the task modal
   deleteTaskBtn.addEventListener('click', () => 
     {
-      let del = deleteTask(task.id);//->delete the current task selected
+     //-> Personal Feature to validate if user wants to delete the chosen task
+     if(confirm("Are you sure you want to delete this task?"))
+     {
+          let del = deleteTask(task.id);//->delete the current task selected
       console.log(del) //-> Debugging purposes
       
       setTimeout(() => refreshTasksUI(), 100);//->Refresh the UI
       toggleModal(false, elements.editTaskModal); //->Close the edit task modal
+     }
+      
     });
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
