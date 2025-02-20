@@ -258,7 +258,8 @@ function toggleSidebar(show)
 }
 
 function toggleTheme() {
- 
+   const elLogo = document.getElementById("logo");
+     
   //Used A Switch Statement
   switch(localStorage.getItem('light-theme'))
   {
@@ -267,6 +268,7 @@ function toggleTheme() {
       document.body.classList.remove('light-theme') //Remove the light-theme defaulting to :root theme
       localStorage.setItem('light-theme','disabled') //Change the value inside the localStorage
      console.log("isLightTheme : " + localStorage.getItem('light-theme')) //Show status on my console for debugging purposes - disable
+     elLogo.src = "./assets/logo-dark.svg";
     }
     break;
     default : 
@@ -274,6 +276,7 @@ function toggleTheme() {
       document.body.classList.toggle('light-theme'); //Add the light-theme from the given css file
       localStorage.setItem('light-theme','enabled') //Change the status to enabled  inside the localStorage
       console.log("isLightTheme : " + localStorage.getItem('light-theme'))//Show results on console - enable
+      elLogo.src = "./assets/logo-light.svg";
     }
   }
  
