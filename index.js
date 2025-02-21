@@ -369,4 +369,138 @@ function init() {
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
   document.body.classList.toggle('light-theme', isLightTheme);
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
+  handleMobileView(mobileMediaQuery); //->Load MobileView
 }
+
+
+/*------------------Tablet & Mobile Media Queries Edit-----------------------------*/
+
+// Define media query for mobile (max-width: 1023px)
+const mobileMediaQuery = window.matchMedia("(max-width: 1023px)");
+// Listen for screen size changes
+mobileMediaQuery.addEventListener("change", handleMobileView);
+
+function handleMobileView(e) 
+{
+  const sidebarMobile = sidebar;
+  const logoMobile = document.querySelector(".logo-mobile");
+  const headerBoardMobile = document.querySelector('.header-board-name');
+  const dropdownBoardMobile = document.querySelector('.dropdownBtn');
+  const dotsMobile = document.querySelector("#three-dots-icon")
+  const newTaskMobile = document.querySelector('#add-new-task-btn');
+  
+  elements.showSideBarBtn.style.display = "none"; //disable the showsidebarbtn regardless of resolution
+
+  // Handle sidebar visibility
+  if (sidebarMobile) {
+           if (e.matches)
+                sidebarMobile.style.display = "none"; // Hide sidebar for mobile view
+           else 
+               sidebarMobile.style.display = "flex"; // Show sidebar for larger screens
+       }
+
+  // Handle logo adjustments for mobile view
+  if (logoMobile) {
+      if (e.matches) {
+      
+        logoMobile.style.display = "block";
+        logoMobile.style.width = "15em"; // Set a maximum width for the logo
+        logoMobile.style.maxWidth = "100%"; // Ensure it doesn't overflow the container
+        logoMobile.style.height = "auto"; // Maintain aspect ratio
+        logoMobile.style.marginTop = "5%";// Adjust logo size and margin for mobile
+      } else {
+        logoMobile.style.display = "none";
+          logoMobile.style.width = ""; // Reset logo width for larger screens
+          logoMobile.style.marginTop = ""; // Reset margin-top
+          
+      }
+  }
+
+  // Handle header adjustments for mobile view
+  if (headerBoardMobile) {
+      if (e.matches) {
+              // Apply flexbox to center the header
+              headerBoardMobile.style.display = "flex"; // Flexbox for centering
+              headerBoardMobile.style.justifyContent = "center"; // Horizontally center the header
+              headerBoardMobile.style.alignItems = "center"; // Vertically center the header (optional)
+              headerBoardMobile.style.position = "absolute"; // Absolutely position the header
+              headerBoardMobile.style.top = "30%"; // Position in the vertical center
+              headerBoardMobile.style.transform = "translateY(-50%)"; // Adjust for exact center
+              headerBoardMobile.style.left = "47%"; // Position in the horizontal center
+              headerBoardMobile.style.transform += " translateX(-50%)"; // Adjust for exact center
+          } else {
+              // Reset position and alignment for larger screens
+              headerBoardMobile.style.position = ""; // Remove absolute positioning
+              headerBoardMobile.style.transform = ""; // Reset transform
+              headerBoardMobile.style.marginLeft = ""; // Reset margin-left for larger screens
+              headerBoardMobile.style.marginRight = ""; // Reset margin-right for larger screens
+  }
+}
+
+  // Handle dropdown visibility for mobile view
+  if (dropdownMobile) {
+      if (e.matches) {
+         dropdownMobile.style.display = "block"; // Show dropdown for mobile view
+         // Apply flexbox to center the header
+         //headerBoardMobile.style.display = "flex"; // Flexbox for centering
+         dropdownMobile.style.justifyContent = "center"; // Horizontally center the header
+         dropdownMobile.style.alignItems = "center"; // Vertically center the header (optional)
+         dropdownMobile.style.position = "absolute"; // Absolutely position the header
+         dropdownMobile.style.top = "50%"; // Position in the vertical center
+         dropdownMobile.style.transform = "translateY(-50%)"; // Adjust for exact center
+         dropdownMobile.style.left = "58%"; // Position in the horizontal center
+         dropdownMobile.style.transform += " translateX(-50%)"; // Adjust for exact center
+         dropdownMobile.style.backgroundColor = "transparent";
+         dropdownMobile.style.border = "0";
+         dropdownMobile.style.padding= "1px";
+     
+         // Attach a single dropdown click event to toggle the sidebar
+         if (dropdownMobile && sidebarMobile) 
+         {
+            dropdownMobile.addEventListener('click', () => 
+            {
+             // Use getComputedStyle to determine the current display value
+              const sidebarDisplay = window.getComputedStyle(sidebarMobile).display;
+              if (sidebarDisplay === "none") 
+              {
+                  sidebarMobile.style.top = "40%"
+                  toggleSidebar(true);
+                     
+               } 
+               else 
+               {
+                   toggleSidebar(false);
+                   elements.showSideBarBtn.style.display = "none";
+                }
+            });
+                
+         }
+     } else {
+        dropdownMobile.style.display = "none"; // Hide dropdown for larger screens
+        dropdownMobile.style.marginLeft = ""; // Reset margin for dropdown
+        dropdownMobile.style.marginRight = ""; // Reset margin for dropdown
+      }
+  }
+
+   // Handle logo adjustments for mobile view
+   if (dotsMobile) {
+    if (e.matches) {
+    
+     dotsMobile.style.display = "none"
+    } else {
+      dotsMobile.style.display = "";      
+    }
+}
+
+  if(buttonBoardMobile)
+    {
+      if (e.matches) {
+        buttonMobile.style.marginRight = "0%"
+      
+       } else {
+         buttonMobile.style.marginRight = "";      
+       }
+    }
+}
+
+
