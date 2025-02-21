@@ -374,7 +374,7 @@ function init() {
 
 
 /*------------------Tablet & Mobile Media Queries Edit-----------------------------*/
-/ Define media query for mobile (max-width: 1024px)
+// Define media query for mobile (max-width: 1024px)
 const mobileMediaQuery = window.matchMedia("(max-width: 1023px)");
 function handleMobileView(e) {
   const sidebarMobile = document.querySelector(".side-bar");
