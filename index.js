@@ -30,7 +30,15 @@ const elements = {
         modalWindow: document.getElementById('new-task-modal-window'),
         columnDivs: document.querySelectorAll('.column-div'),
         sidebar: document.getElementById('side-bar-div'),
-        editTaskModal: document.querySelector('.edit-task-modal-window')
+     
+        editTaskModal: document.querySelector('.edit-task-modal-window'),
+        elTitle: document.getElementById('title-input'),
+        elDescription: document.getElementById('desc-input'),
+        elStatus :document.getElementById('select-status'),
+        elETitle: document.getElementById('edit-task-title-input'),
+        elEDescription: document.getElementById('edit-task-desc-input'),
+        elEStatus: document.getElementById('edit-select-status')
+     
 }
 
 let activeBoard = ""
@@ -203,9 +211,9 @@ function addTask(event) {
      
   //-> Create an object for the new task
     const task = {
-      title: document.getElementById('title-input').value.trim(),
-      description: document.getElementById('desc-input').value.trim(),
-      status: document.getElementById('select-status').value ,
+      title: elements.elTitle.value.trim(),
+      description: elements.elDescription.value.trim(),
+      status: elements.elStatus.value ,
       board: activeBoard
   };
 
@@ -229,10 +237,8 @@ function addTask(event) {
   refreshTasksUI();
 
   //-> Clear input fields 
-  elTitle.value = "";
-  elDescription.value = "";
-  elStatus.value = "todo"; // Set default status if applicable
-
+  elements.elTitle.value = "";
+  elements.elDescription.value = "";
 }
 
 
@@ -286,9 +292,9 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
 // Set task details in modal inputs
-  document.getElementById('edit-task-title-input').value = task.title;
-  document.getElementById('edit-task-desc-input').value = task.description;
-  document.getElementById('edit-select-status').value = task.status;
+  elements.elETitle.value = task.title;
+  elements.elEDescription.value = task.description;
+  elements.elEStatus.value = task.status;
 
  // Get original button elements from the task modal
   const oldSaveChangesBtn = document.getElementById('save-task-changes-btn');
@@ -329,9 +335,9 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  const elTitle = document.getElementById('edit-task-title-input').value.trim();
-  const elDescription = document.getElementById('edit-task-desc-input').value.trim();
-  const elStatus = document.getElementById('edit-select-status').value;
+  const elTitle = elements.elETitle.value.trim();
+  const elDescription = elements.elEDescription.value.trim();
+  const elStatus = elements.elEStatus.value;
   
   // Create an object with the updated task details
   let objTask = 
