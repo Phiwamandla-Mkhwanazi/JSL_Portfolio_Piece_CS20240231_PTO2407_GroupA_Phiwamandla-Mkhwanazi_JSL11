@@ -374,30 +374,25 @@ function init() {
 
 
 /*------------------Tablet & Mobile Media Queries Edit-----------------------------*/
-
-// Define media query for mobile (max-width: 1023px)
+/ Define media query for mobile (max-width: 1024px)
 const mobileMediaQuery = window.matchMedia("(max-width: 1023px)");
-// Listen for screen size changes
-mobileMediaQuery.addEventListener("change", handleMobileView);
-
-function handleMobileView(e) 
-{
-  const sidebarMobile = sidebar;
+function handleMobileView(e) {
+  const sidebarMobile = document.querySelector(".side-bar");
   const logoMobile = document.querySelector(".logo-mobile");
   const headerBoardMobile = document.querySelector('.header-board-name');
-  const dropdownBoardMobile = document.querySelector('.dropdownBtn');
+  const dropdownMobile = document.querySelector('.dropdownBtn');
   const dotsMobile = document.querySelector("#three-dots-icon")
-  const newTaskMobile = document.querySelector('#add-new-task-btn');
-  
-  elements.showSideBarBtn.style.display = "none"; //disable the showsidebarbtn regardless of resolution
+  const buttonMobile = document.querySelector('#add-new-task-btn');
+   elements.showSideBarBtn.style.display = "none";
 
   // Handle sidebar visibility
   if (sidebarMobile) {
-           if (e.matches)
-                sidebarMobile.style.display = "none"; // Hide sidebar for mobile view
-           else 
-               sidebarMobile.style.display = "flex"; // Show sidebar for larger screens
-       }
+      if (e.matches) {
+          sidebarMobile.style.display = "none"; // Hide sidebar for mobile view
+      } else {
+          sidebarMobile.style.display = "flex"; // Show sidebar for larger screens
+      }
+  }
 
   // Handle logo adjustments for mobile view
   if (logoMobile) {
@@ -440,42 +435,41 @@ function handleMobileView(e)
   // Handle dropdown visibility for mobile view
   if (dropdownMobile) {
       if (e.matches) {
-         dropdownMobile.style.display = "block"; // Show dropdown for mobile view
+          dropdownMobile.style.display = "block"; // Show dropdown for mobile view
          // Apply flexbox to center the header
          //headerBoardMobile.style.display = "flex"; // Flexbox for centering
          dropdownMobile.style.justifyContent = "center"; // Horizontally center the header
          dropdownMobile.style.alignItems = "center"; // Vertically center the header (optional)
          dropdownMobile.style.position = "absolute"; // Absolutely position the header
          dropdownMobile.style.top = "50%"; // Position in the vertical center
-         dropdownMobile.style.transform = "translateY(-50%)"; // Adjust for exact center
+        dropdownMobile.style.transform = "translateY(-50%)"; // Adjust for exact center
          dropdownMobile.style.left = "58%"; // Position in the horizontal center
-         dropdownMobile.style.transform += " translateX(-50%)"; // Adjust for exact center
-         dropdownMobile.style.backgroundColor = "transparent";
-         dropdownMobile.style.border = "0";
-         dropdownMobile.style.padding= "1px";
+          dropdownMobile.style.transform += " translateX(-50%)"; // Adjust for exact center
+          dropdownMobile.style.backgroundColor = "transparent";
+          dropdownMobile.style.border = "0";
+          dropdownMobile.style.padding= "1px";
      
-         // Attach a single dropdown click event to toggle the sidebar
-         if (dropdownMobile && sidebarMobile) 
-         {
-            dropdownMobile.addEventListener('click', () => 
-            {
-             // Use getComputedStyle to determine the current display value
-              const sidebarDisplay = window.getComputedStyle(sidebarMobile).display;
-              if (sidebarDisplay === "none") 
-              {
-                  sidebarMobile.style.top = "40%"
-                  toggleSidebar(true);
+              // Attach a single dropdown click event to toggle the sidebar
+              if (dropdownMobile && sidebarMobile) 
+                {
+                    dropdownMobile.addEventListener('click', () => 
+                {
+                  // Use getComputedStyle to determine the current display value
+                  const sidebarDisplay = window.getComputedStyle(sidebarMobile).display;
+                  if (sidebarDisplay === "none") 
+                    {
+                      sidebarMobile.style.top = "40%"
+                      toggleSidebar(true);
                      
-               } 
-               else 
-               {
-                   toggleSidebar(false);
-                   elements.showSideBarBtn.style.display = "none";
+                    } 
+                    else 
+                    {
+                      toggleSidebar(false);
+                      elements.showSideBarBtn.style.display = "none";
+                    }
+                });
                 }
-            });
-                
-         }
-     } else {
+      } else {
         dropdownMobile.style.display = "none"; // Hide dropdown for larger screens
         dropdownMobile.style.marginLeft = ""; // Reset margin for dropdown
         dropdownMobile.style.marginRight = ""; // Reset margin for dropdown
@@ -492,7 +486,7 @@ function handleMobileView(e)
     }
 }
 
-  if(buttonBoardMobile)
+  if(buttonMobile)
     {
       if (e.matches) {
         buttonMobile.style.marginRight = "0%"
@@ -503,4 +497,5 @@ function handleMobileView(e)
     }
 }
 
-
+// Listen for screen size changes
+mobileMediaQuery.addEventListener("change", handleMobileView);
