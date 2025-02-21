@@ -290,27 +290,39 @@ function openEditTaskModal(task) {
   document.getElementById('edit-task-desc-input').value = task.description;
   document.getElementById('edit-select-status').value = task.status;
 
-  // Get button elements from the task modal
-  const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
+ // Get original button elements from the task modal
+  const oldSaveChangesBtn = document.getElementById('save-task-changes-btn');
+  const oldDeleteTaskBtn = document.getElementById('delete-task-btn');
 
+  // Replace buttons with clean clones to remove previous event listeners
+  const saveChangesBtn = oldSaveChangesBtn.cloneNode(true);
+  const deleteTaskBtn = oldDeleteTaskBtn.cloneNode(true);
+  oldSaveChangesBtn.parentNode.replaceChild(saveChangesBtn, oldSaveChangesBtn);
+  oldDeleteTaskBtn.parentNode.replaceChild(deleteTaskBtn, oldDeleteTaskBtn);
+  
   // Call saveTaskChanges upon click of Save Changes button
-  saveChangesBtn.addEventListener('click', ()=> saveTaskChanges(task.id));
+  saveChangesBtn.addEventListener('click', ()=> 
+    {
+      saveTaskChanges(task.id)
+      toggleModal(false, elements.editTaskModal);
+      refreshTasksUI();
+    });
 
   // Delete task using a helper function and close the task modal
   deleteTaskBtn.addEventListener('click', () => 
     {
-     //-> Personal Feature to validate if user wants to delete the chosen task
-     if(confirm("Are you sure you want to delete this task?"))
-     {
+      //Personal Feature
+      if (confirm("Are you sure you want to delete this task?")) 
+        {
           let del = deleteTask(task.id);//->delete the current task selected
-      console.log(del) //-> Debugging purposes
-      
-      setTimeout(() => refreshTasksUI(), 100);//->Refresh the UI
-      toggleModal(false, elements.editTaskModal); //->Close the edit task modal
-     }
-      
+          console.log(del) //-> Debugging purposes
+          
+          setTimeout(() => refreshTasksUI(), 100);//->Refresh the UI
+          toggleModal(false, elements.editTaskModal); //->Close the edit task modal
+        }
+  
     });
+
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
@@ -336,7 +348,7 @@ function saveTaskChanges(taskId) {
     return;
   }
   else
-  putTask(taskId, objTask);
+  patchTask(taskId, objTask);
 
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
